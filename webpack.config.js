@@ -1,5 +1,7 @@
-const MiniCssExtractPlugin = require('mini-css-extract-plugin');
-
+const path = require("path");
+const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+const HtmlWebpackPlugin = require("html-webpack-plugin");
+const { CleanWebpackPlugin } = require("clean-webpack-plugin");
 let mode = "development";
 // let target = "web";
 
@@ -13,7 +15,8 @@ module.exports = {
   // target: target,
 
   output: {
-    assetModuleFilename: "images/[hash][ext][query]"
+    path: path.resolve(__dirname, "dist"),
+    assetModuleFilename: "images/[hash][ext][query]",
   },
 
   module: {
@@ -32,27 +35,38 @@ module.exports = {
       },
       {
         test: /\.(s[ac]|c)ss$/,
-        use: [MiniCssExtractPlugin.loader, "css-loader", "postcss-loader", "sass-loader"]
+        use: [
+          MiniCssExtractPlugin.loader,
+          "css-loader",
+          "postcss-loader",
+          "sass-loader",
+        ],
       },
       {
         test: /\.jsx?$/,
         exclude: /node_modules/,
         use: {
-          loader: 'babel-loader'
+          loader: "babel-loader",
         },
       },
     ],
   },
 
-  plugins: [new MiniCssExtractPlugin()],
+  plugins: [
+    new CleanWebpackPlugin(),
+    new MiniCssExtractPlugin(),
+    new HtmlWebpackPlugin({
+      template: "./src/index.html",
+    }),
+  ],
 
   resolve: {
-    extensions: [".js", ".jsx"]
+    extensions: [".js", ".jsx"],
   },
 
   devtool: "source-map",
   devServer: {
-    static: './dist',
-    hot: true // 默认开启
-  }
-}
+    static: "./dist",
+    hot: true, // 默认开启
+  },
+};
