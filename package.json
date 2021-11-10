@@ -4,7 +4,8 @@
     "start": "webpack serve",
     "watch": "webpack --watch",
     "build": "set NODE_ENV=production& webpack",
-    "build-dev": "webpack"
+    "build-dev": "webpack",
+    "clean": "rm -rf dist"
   },
   "devDependencies": {
     "@babel/core": "^7.16.0",
@@ -16,6 +17,7 @@
     "postcss": "^8.3.11",
     "postcss-loader": "^6.2.0",
     "postcss-preset-env": "^6.7.0",
+    "rimraf": "^3.0.2",
     "sass": "^1.43.4",
     "sass-loader": "^12.3.0",
     "webpack": "^5.62.2",
